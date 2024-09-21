@@ -17,6 +17,18 @@ def addTimes(player1: str, player2: str):
 def subTimes(player1: str, player2: str):
     return floatToTime(timeToFloat(player1) - timeToFloat(player2))
 
+def multTimes(player1: str, player2: str):
+    return floatToTime(timeToFloat(player1) * timeToFloat(player2))
+
+def divTimes(player1: str, player2: str):
+    return floatToTime(timeToFloat(player1) / timeToFloat(player2))
+
+def multTimes(player1: str, player2: str):
+    return floatToTime(timeToFloat(player1) * timeToFloat(player2))
+
+def modTimes(player1: str, player2: str):
+    return floatToTime(timeToFloat(player1) % timeToFloat(player2))
+
 def timeToFloat(player1: str):
     total = 0
     time1 = player1.split(":")
@@ -32,36 +44,25 @@ def timeToFloat(player1: str):
 
 def floatToTime(num: float):
     timer = ""
-    
-    if floor(num/(60*60*24)) < 10:
-        timer = "0" + str(floor(num/(60*60*24))) + ':'
-    else:
-        timer += str(floor(num/(60*60*24))) + ':'
-    if num >= 60*60*24:
-        num %= 24
-    
-    if floor(num/(60*60)) < 10:
-        timer += "0" + str(floor(num/(60*60))) + ':'
-    else:
-        timer += str(floor(num/(60*60))) + ':'
-    if num >= 60*60:
-        num %= 60
-    
-    if floor(num/60) < 10:
-        timer += "0" + str(floor(num/60)) + ':'
-    else:
-        timer += str(floor(num/60)) + ':'
-    if num >= 60:
-        num %= 60
-    
-    if floor(num) < 10:
-        timer += "0" + str(floor(num))
-    else:
-        timer += str(floor(num))
-    
+    measures = [24, 60, 60, 1]
+    factor = 1
+
+    for measure in measures:
+        factor *= measure
+    for measure in measures:
+        if floor(num/factor) < 10:
+            timer += "0"
+        timer += str(floor(num/factor))
+        if factor != 1:
+            timer += ":"
+        if num >= factor:
+            num %= measure
+        factor /= measure
     return timer
 
 if __name__ == "__main__":
     print(floatToTime(61))
     print(timeToFloat("01:01"))
     print(compareTimes("20:05", "15:19"))
+    print(subTimes("40:41", "19:02"))
+
