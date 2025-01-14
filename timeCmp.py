@@ -23,11 +23,20 @@ def multTimes(player1: str, player2: str):
 def divTimes(player1: str, player2: str):
     return floatToTime(timeToFloat(player1) / timeToFloat(player2))
 
-def multTimes(player1: str, player2: str):
-    return floatToTime(timeToFloat(player1) * timeToFloat(player2))
-
 def modTimes(player1: str, player2: str):
     return floatToTime(timeToFloat(player1) % timeToFloat(player2))
+
+def calcTimes(time1: str, operation: str, time2: str) -> str:    
+    if operation == '+':
+        return addTimes(time1, time2)
+    if operation == '-':
+        return subTimes(time1, time2)
+    if operation == '*':
+        return multTimes(time1, time2)
+    if operation == '/':
+        return divTimes(time1, time2)
+    if operation == '%':
+        return modTimes(time1, time2)
 
 def timeToFloat(player1: str):
     total = 0
@@ -44,7 +53,7 @@ def timeToFloat(player1: str):
 
 def floatToTime(num: float):
     timer = ""
-    measures = [24, 60, 60, 1]
+    measures = [24, 60, 60, 1] # largest time measure to smallest time measure
     factor = 1
 
     for measure in measures:
@@ -64,5 +73,7 @@ if __name__ == "__main__":
     print(floatToTime(61))
     print(timeToFloat("01:01"))
     print(compareTimes("20:05", "15:19"))
-    print(subTimes("40:41", "19:02"))
+    print(subTimes("1:12:14","11:48"))
+    print(calcTimes("34:56", '-', "11:11"))
+    print(calcTimes("59:59",'+',"1"))
 
